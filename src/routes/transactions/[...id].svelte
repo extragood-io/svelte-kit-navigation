@@ -1,4 +1,6 @@
 <script context="module">
+	// Pass the id parameter from the dynamic path slug corresponding to /transactions/[id]
+	// This gets set to the exported variable transaction_id
 	export async function load({ page: { params } }) {
 		const { id } = params;
 		return { props: { transaction_id: id } };
@@ -7,21 +9,29 @@
 
 <script>
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
 	import { writable } from 'svelte/store';
 	import { onDestroy, onMount } from 'svelte';
 	import TransactionDetails from '$lib/Transaction/details.svelte';
 	import { fetchTransactions } from '$lib/api';
 
+	// This variable is set from the load function above
 	export let transaction_id;
+
+	// We use stores to reference the list of transactions as well as the transaction details
+	// for the currently selected transaction.
 	const transactions = writable([]);
 	const selectedTxn = writable(undefined);
+
+	// Track subscriptions to wrtable stores, to unsubscribe when the component is destroyed
 	const unsubs = [];
 
+	// Main function for setting the correct state on the page.
+	// This idempotent function sets the selected transaction data
+	// based on the transaction id from dynamic path.
+	// It identifies the selected transaction from the list of all transactions loaded
+	// when the component mounts.
 	function setupPage(txn_id, txns = $transactions) {
 		if (!txns) return;
-
-		console.log('SETUP PAGE', txn_id, txns);
 
 		if (txn_id === '' && txns.length > 0) {
 			goto(`/transactions/${txns[0].id}`);
@@ -35,16 +45,20 @@
 		}
 	}
 
+	// Call the setupPage method reactively when the transaction_id is changed
 	$: setupPage(transaction_id, $transactions);
 
+	// Call the setupPage method reactively when the list of all transactions is changed
 	unsubs[unsubs.length] = transactions.subscribe((ts) => setupPage(transaction_id, ts));
 
+	// Fetch all transactions when this component mounts
 	onMount(() => {
 		fetchTransactions().then((ts) => {
 			transactions.set(ts);
 		});
 	});
 
+	// Unsubscribe from all subscriptions
 	onDestroy(() => unsubs.forEach((_) => _()));
 </script>
 
