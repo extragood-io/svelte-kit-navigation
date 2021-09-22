@@ -84,18 +84,16 @@
 			</a>
 		</div>
 		<ul class="flex flex-col">
-			{#if $transactions.length > 0}
-				{#each $transactions as txn (txn.id)}
-					<li
-						class:active={txn.id == transaction_id}
-						class="m-2 border border-green-900 rounded-sm p-2"
-					>
-						<a href={`/transactions/${txn.id}`} class="linklike">Transaction {txn.id}</a>
-					</li>
-				{/each}
+			{#each $transactions as txn (txn.id)}
+				<li
+					class:active={txn.id == transaction_id}
+					class="m-2 border border-green-900 rounded-sm p-2"
+				>
+					<a href={`/transactions/${txn.id}`} class="linklike">Transaction {txn.id}</a>
+				</li>
 			{:else}
 				<li>No transactions</li>
-			{/if}
+			{/each}
 		</ul>
 	</div>
 	<div class="w-3/4">

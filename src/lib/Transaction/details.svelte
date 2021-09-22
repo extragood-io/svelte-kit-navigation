@@ -22,7 +22,7 @@
 
 	// Subscribe to page and navigating stores to setup page when navigation changes
 	// Note that, in our testing, the Svelte-kit load function does not fire on child modules
-	// This is an alternative way to detect navigation changes
+	// This is an alternative way to detect navigation changes without the component load function
 	unsubs[unsubs.length] = page.subscribe(setupPage);
 	unsubs[unsubs.length] = navigating.subscribe((n) => {
 		if (n?.to) {
