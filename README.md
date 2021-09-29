@@ -2,11 +2,11 @@
 
 This code accompanies the blog post on using Svelte-kit to support rich, dynamic path-based navigation in a Svelte app.
 
-You can find the post at [INSERT LINK]
+You can find the post at [this link](https://jumpwire.ai/blog/sveltekit-path-based-navigation)
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Once you've created a project and installed dependencies with `yarn install`, start a development server:
 
 ```bash
 yarn run dev
