@@ -1,8 +1,7 @@
 <script context="module">
 	// Pass the id parameter from the dynamic path slug corresponding to /transactions/[id]
 	// This gets set to the exported variable transaction_id
-	export async function load({ page: { params } }) {
-		const { id } = params;
+	export async function load({ params: { id } }) {
 		return { props: { transaction_id: id } };
 	}
 </script>

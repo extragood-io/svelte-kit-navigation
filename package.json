@@ -1,18 +1,19 @@
 {
-  "name": "gamayun",
-  "version": "0.0.1",
+  "name": "svelte-kit-navigation",
+  "version": "0.0.2",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
     "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
     "@iconify/svelte": "^2.0.0",
-    "@sveltejs/adapter-static": "^1.0.0-next.17",
-    "@sveltejs/kit": "^1.0.0-next.156",
-    "autoprefixer": "^10.3.1",
+    "@sveltejs/adapter-static": "^1.0.0-next.43",
+    "@sveltejs/kit": "1.0.0-next.405",
+    "@sveltejs/vite-plugin-svelte": "^1.0.5",
+    "autoprefixer": "^10.4.11",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^3.2.0",
@@ -22,7 +23,8 @@
     "prettier-plugin-svelte": "^2.3.1",
     "svelte": "^3.42.3",
     "svelte-preprocess": "^4.8.0",
-    "tailwindcss": "^2.2.7"
+    "tailwindcss": "^2.2.19",
+    "vite": "^3.1.1"
   },
   "type": "module",
   "dependencies": {
