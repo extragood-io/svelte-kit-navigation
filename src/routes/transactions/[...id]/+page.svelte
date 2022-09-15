@@ -1,12 +1,6 @@
-<script context="module">
-	// Pass the id parameter from the dynamic path slug corresponding to /transactions/[id]
-	// This gets set to the exported variable transaction_id
-	export async function load({ params: { id } }) {
-		return { props: { transaction_id: id } };
-	}
-</script>
-
 <script>
+	throw new Error("@migration task: Add data prop (https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3292707)");
+
 	import { goto } from '$app/navigation';
 	import { writable } from 'svelte/store';
 	import { onDestroy, onMount } from 'svelte';
