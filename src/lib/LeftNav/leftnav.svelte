@@ -5,7 +5,7 @@
 <div class="flex flex-col text-purple-900">
 	<a
 		href="/"
-		class:bg-gray-300={$page.path == '' || $page.path == '/'}
+		class:bg-gray-300={$page.url.pathname == '' || $page.url.pathname == '/'}
 		class="p-4 flex flex-row cursor-pointer"
 	>
 		<svg
@@ -22,7 +22,7 @@
 	</a>
 	<a
 		href="/transactions"
-		class:bg-gray-300={$page.path.startsWith('/transactions')}
+		class:bg-gray-300={$page.url.pathname.startsWith('/transactions')}
 		class="p-4 flex flex-row cursor-pointer"
 	>
 		<svg

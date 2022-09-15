@@ -8,9 +8,6 @@ export default {
 		adapter: adapter({
 			fallback: 'index.html',
 		}),
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
-		ssr: false,
 	},
 
 	preprocess: preprocess({
