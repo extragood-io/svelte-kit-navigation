@@ -12,7 +12,7 @@
 	// Show form based on url parameters
 	// Svelte-kit page store contains an instance of URLSearchParams
 	// https://kit.svelte.dev/docs#loading-input-page
-	function setupPage(url) {
+	function setupPage({ url }) {
 		if (url.searchParams.get('new') == 't') {
 			showForm = true;
 		} else {
@@ -23,7 +23,7 @@
 	// Subscribe to page and navigating stores to setup page when navigation changes
 	// Note that, in our testing, the Svelte-kit load function does not fire on child modules
 	// This is an alternative way to detect navigation changes without the component load function
-	unsubs[unsubs.length] = page.subscribe((p) => setupPage(p.url));
+	unsubs[unsubs.length] = page.subscribe(setupPage);
 	unsubs[unsubs.length] = navigating.subscribe((n) => {
 		if (n?.to) {
 			setupPage(n.to);

@@ -1,18 +1,15 @@
 <script>
-	throw new Error("@migration task: Add data prop (https://github.com/sveltejs/kit/discussions/5774#discussioncomment-3292707)");
-
 	import { goto } from '$app/navigation';
 	import { writable } from 'svelte/store';
-	import { onDestroy, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import TransactionDetails from '$lib/Transaction/details.svelte';
-	import { fetchTransactions } from '$lib/api';
 
-	// This variable is set from the load function above
-	export let transaction_id;
+	// This variable is set from the load function in +page.js
+	export let data
 
 	// We use stores to reference the list of transactions as well as the transaction details
 	// for the currently selected transaction.
-	const transactions = writable([]);
+	const transactions = writable(data.transactions);
 	const selectedTxn = writable(undefined);
 
 	// Track subscriptions to wrtable stores, to unsubscribe when the component is destroyed
@@ -38,18 +35,11 @@
 		}
 	}
 
-	// Call the setupPage method reactively when the transaction_id is changed
-	$: setupPage(transaction_id, $transactions);
+	// Call the setupPage method reactively when the transaction id is changed
+	$: setupPage(data.transaction_id, $transactions);
 
 	// Call the setupPage method reactively when the list of all transactions is changed
-	unsubs[unsubs.length] = transactions.subscribe((ts) => setupPage(transaction_id, ts));
-
-	// Fetch all transactions when this component mounts
-	onMount(() => {
-		fetchTransactions().then((ts) => {
-			transactions.set(ts);
-		});
-	});
+	unsubs[unsubs.length] = transactions.subscribe((ts) => setupPage(data.transaction_id, ts));
 
 	// Unsubscribe from all subscriptions
 	onDestroy(() => unsubs.forEach((_) => _()));
@@ -79,7 +69,7 @@
 		<ul class="flex flex-col">
 			{#each $transactions as txn (txn.id)}
 				<li
-					class:active={txn.id == transaction_id}
+					class:active={txn.id == data.transaction_id}
 					class="m-2 border border-green-900 rounded-sm p-2"
 				>
 					<a href={`/transactions/${txn.id}`} class="linklike">Transaction {txn.id}</a>
@@ -93,9 +83,9 @@
 		{#if !$selectedTxn && $transactions?.length == 0}
 			<div>Create transaction</div>
 		{:else if $selectedTxn}
-			<TransactionDetails {transaction_id} />
-		{:else if transaction_id}
-			<div>Transaction {transaction_id} not found</div>
+			<TransactionDetails transaction_id={data.transaction_id} />
+		{:else if data.transaction_id}
+			<div>Transaction {data.transaction_id} not found</div>
 		{/if}
 	</div>
 </div>
